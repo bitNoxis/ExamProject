@@ -3,6 +3,7 @@ import tkinter as tk
 from PIL import Image, ImageTk
 
 from ExamProject.src.RoundedButton import RoundedButton
+from ExamProject.src.GradientFrame import GradientFrame
 
 # Initialize the root window
 root = tk.Tk()
@@ -10,6 +11,8 @@ root.minsize(width=700, height=700)
 root.title('Fitlistic')
 root.configure(background="White")
 
+# Variable to store the user's name
+name = tk.StringVar()
 
 # Clearing the widget for new usage
 def clear_widgets(root):
@@ -40,7 +43,7 @@ def main_gui(root):
                            bg='white')
     entry_label.place(relx=0.5, y=400, anchor='center')
 
-    name_entry = tk.Entry(root, font=('Arial', 20), bg='grey')
+    name_entry = tk.Entry(root, textvariable=name, font=('Arial', 20), bg='grey')
     name_entry.place(relx=0.5, y=450, anchor='center')
 
     button = RoundedButton(root,
@@ -53,16 +56,20 @@ def main_gui(root):
                            text="Get Started",
                            text_color="black",
                            #Hier
-                           command=lambda: second_gui(root))
+                           command=lambda: second_gui(root, name.get())
+                           )
 
     button.place(relx=0.5, y=600, anchor="center")
 
 
-def second_gui(root):
+def second_gui(root, user_name):
     clear_widgets(root)
 
+    gradient_frame = GradientFrame(root, "lightgreen", "green", bg_color="white")
+    gradient_frame.pack(fill="both", expand=True)
+
     welcome_label = tk.Label(root,
-                             text=f"Welcome",
+                             text=f"Welcome, {user_name}",
                              font=('Arial', 18, 'bold'),
                              bg="white", fg="black")
     welcome_label.place(relx=0.5, y=250, anchor="center")
