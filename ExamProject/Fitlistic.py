@@ -7,12 +7,13 @@ from ExamProject.src.GradientFrame import GradientFrame
 
 # Initialize the root window
 root = tk.Tk()
-root.minsize(width=700, height=700)
+root.minsize(width=700, height=800)
 root.title('Fitlistic')
 root.configure(background="White")
 
 # Variable to store the user's name
 name = tk.StringVar()
+
 
 # Clearing the widget for new usage
 def clear_widgets(root):
@@ -20,7 +21,7 @@ def clear_widgets(root):
         widget.destroy()
 
 
-def main_gui(root):
+def intro_gui(root):
     clear_widgets(root)
 
     image_file_path = "../ExamProject/images/LOGO.png"
@@ -55,14 +56,13 @@ def main_gui(root):
                            'white',
                            text="Get Started",
                            text_color="black",
-                           #Hier
-                           command=lambda: second_gui(root, name.get())
+                           # Transporting the name over to the next screen
+                           command=lambda: overview_gui(root, name.get())
                            )
-
     button.place(relx=0.5, y=600, anchor="center")
 
 
-def second_gui(root, user_name):
+def overview_gui(root, user_name):
     clear_widgets(root)
 
     gradient_frame = GradientFrame(root, "lightgreen", "green", bg_color="white")
@@ -72,9 +72,99 @@ def second_gui(root, user_name):
                              text=f"Welcome, {user_name}",
                              font=('Arial', 18, 'bold'),
                              bg="white", fg="black")
-    welcome_label.place(relx=0.5, y=250, anchor="center")
+    welcome_label.place(relx=0.5, y=100, anchor="center")
+
+    welcome_label = tk.Label(root,
+                             text="Start a Session",
+                             font=('Arial', 18, 'bold'),
+                             bg="white", fg="black")
+    welcome_label.place(relx=0.5, y=350, anchor="center")
+
+    button = RoundedButton(root,
+                           300,
+                           100,
+                           25,
+                           5,
+                           '#42D742',
+                           'white',
+                           text="Fullbody Workout",
+                           text_color="black",
+                           command=lambda: exercise_gui(root, name.get())
+                           )
+    button.place(relx=0.5, y=425, anchor="center")
+
+    button = RoundedButton(root,
+                           300,
+                           100,
+                           25,
+                           5,
+                           '#42D742',
+                           'white',
+                           text="Fullbody Workout",
+                           text_color="black",
+                           )
+    button.place(relx=0.5, y=550, anchor="center")
+
+    button = RoundedButton(root,
+                           300,
+                           100,
+                           25,
+                           5,
+                           '#42D742',
+                           'white',
+                           text="Power Recovery",
+                           text_color="black",
+                           )
+    button.place(relx=0.5, y=675, anchor="center")
+
+
+def exercise_gui(root, user_name):
+    clear_widgets(root)
+
+    gradient_frame = GradientFrame(root, "lightgreen", "green", bg_color="white")
+    gradient_frame.pack(fill="both", expand=True)
+
+    welcome_label = tk.Label(root,
+                             text="Exercise Session",
+                             font=('Arial', 18, 'bold'),
+                             bg="white", fg="black")
+    welcome_label.place(relx=0.5, y=100, anchor="center")
+
+    button = RoundedButton(root,
+                           200,
+                           75,
+                           25,
+                           5,
+                           '#42D742',
+                           'white',
+                           text="Workout done",
+                           text_color="black",
+                           command=lambda: exercisedone_gui(root, name.get())
+                           )
+    button.place(relx=0.5, y=675, anchor="center")
+
+
+def exercisedone_gui(root, user_name):
+    clear_widgets(root)
+
+    gradient_frame = GradientFrame(root, "lightgreen", "green", bg_color="white")
+    gradient_frame.pack(fill="both", expand=True)
+
+    button = RoundedButton(root,
+                           300,
+                           100,
+                           25,
+                           5,
+                           '#42D742',
+                           'white',
+                           text="Back",
+                           text_color="black",
+                           command=lambda: overview_gui(root, name.get())
+                           )
+    button.place(relx=0.5, y=675, anchor="center")
+
 
 # Call the main GUI function to initialize the main page
-main_gui(root)
+intro_gui(root)
 
 root.mainloop()

@@ -1,5 +1,6 @@
 import tkinter as tk
 
+
 class GradientFrame(tk.Canvas):
 
     def __init__(self, parent, color1="red", color2="black", bg_color="white", **kwargs):
