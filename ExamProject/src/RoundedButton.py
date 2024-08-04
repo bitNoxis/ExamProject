@@ -32,7 +32,8 @@ class RoundedButton(tk.Canvas):
                             start=270, extent=90, fill=color, outline=color)
             self.create_arc((padding, height - padding - rad, padding + rad, height - padding), start=180, extent=90,
                             fill=color, outline=color)
-            self.create_text(width / 2, height / 2, text=text, fill=text_color, font=('Helvetica', 14), anchor='center')
+            self.create_text(width / 2, height / 2, text=text, fill=text_color, font=('Helvetica', 14, 'bold'),
+                             anchor='center')
 
         id = shape()
         (x0, y0, x1, y1) = self.bbox("all")

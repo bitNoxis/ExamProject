@@ -16,7 +16,7 @@ class GradientFrame(tk.Canvas):
         width = self.winfo_width()
         height = self.winfo_height()
         limit = width
-        gradient_height = int(height * 0.3)
+        gradient_height = int(height * 0.25)
         (r1, g1, b1) = self.winfo_rgb(self._color1)
         (r2, g2, b2) = self.winfo_rgb(self._color2)
         r_ratio = float(r2 - r1) / limit

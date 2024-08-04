@@ -1,3 +1,4 @@
+import random
 import tkinter as tk
 
 from PIL import Image, ImageTk
@@ -13,6 +14,13 @@ root.configure(background="White")
 
 # Variable to store the user's name
 name = tk.StringVar()
+
+# Motivational quotations
+quotations = {
+    1: "Exercises is king and nutrition is queen. Combine the two and you will have a kingdom.",
+    2: "The only bad workout is the one that didn't happen.",
+    3: "Fitness is not about being better than someone else. It's about being better than you used to be."
+}
 
 
 # Clearing the widget for new usage
@@ -55,7 +63,7 @@ def intro_gui(root):
                            '#42D742',
                            'white',
                            text="Get Started",
-                           text_color="black",
+                           text_color="white",
                            # Transporting the name over to the next screen
                            command=lambda: overview_gui(root, name.get())
                            )
@@ -69,7 +77,7 @@ def overview_gui(root, user_name):
     gradient_frame.pack(fill="both", expand=True)
 
     welcome_label = tk.Label(root,
-                             text=f"Welcome, {user_name}",
+                             text=f"Welcome back, {user_name}",
                              font=('Arial', 18, 'bold'),
                              bg="white", fg="black")
     welcome_label.place(relx=0.5, y=100, anchor="center")
@@ -88,7 +96,7 @@ def overview_gui(root, user_name):
                            '#42D742',
                            'white',
                            text="Fullbody Workout",
-                           text_color="black",
+                           text_color="white",
                            command=lambda: exercise_gui(root, name.get())
                            )
     button.place(relx=0.5, y=425, anchor="center")
@@ -101,7 +109,7 @@ def overview_gui(root, user_name):
                            '#42D742',
                            'white',
                            text="Fullbody Workout",
-                           text_color="black",
+                           text_color="white",
                            )
     button.place(relx=0.5, y=550, anchor="center")
 
@@ -113,7 +121,7 @@ def overview_gui(root, user_name):
                            '#42D742',
                            'white',
                            text="Power Recovery",
-                           text_color="black",
+                           text_color="white",
                            )
     button.place(relx=0.5, y=675, anchor="center")
 
@@ -121,24 +129,30 @@ def overview_gui(root, user_name):
 def exercise_gui(root, user_name):
     clear_widgets(root)
 
-    gradient_frame = GradientFrame(root, "lightgreen", "green", bg_color="white")
+    gradient_frame = GradientFrame(root, "lightblue", "blue", bg_color="white")
     gradient_frame.pack(fill="both", expand=True)
 
-    welcome_label = tk.Label(root,
+    exercise_label = tk.Label(root,
                              text="Exercise Session",
                              font=('Arial', 18, 'bold'),
                              bg="white", fg="black")
-    welcome_label.place(relx=0.5, y=100, anchor="center")
+    exercise_label.place(relx=0.5, y=75, anchor="center")
+
+    details_label = tk.Label(root,
+                             text="5 Exercises | 15 Minutes | 150 Calorie Burn",
+                             font=('Arial', 14,),
+                             bg="black", fg="white")
+    details_label.place(relx=0.5, y=125, anchor="center")
 
     button = RoundedButton(root,
-                           200,
+                           250,
                            75,
                            25,
                            5,
                            '#42D742',
                            'white',
-                           text="Workout done",
-                           text_color="black",
+                           text="Workout completed",
+                           text_color="white",
                            command=lambda: exercisedone_gui(root, name.get())
                            )
     button.place(relx=0.5, y=675, anchor="center")
@@ -147,24 +161,44 @@ def exercise_gui(root, user_name):
 def exercisedone_gui(root, user_name):
     clear_widgets(root)
 
-    gradient_frame = GradientFrame(root, "lightgreen", "green", bg_color="white")
-    gradient_frame.pack(fill="both", expand=True)
+    imagefinish_file_path = "../ExamProject/images/Finish.png"
+    imageFinish = Image.open(imagefinish_file_path)
+    imageFinish = imageFinish.resize((300, 300), Image.Resampling.LANCZOS)
+
+    root.finish_image = ImageTk.PhotoImage(imageFinish)
+    finishimage_label = tk.Label(root, image=root.finish_image, bg="white")
+    finishimage_label.place(relx=0.5, y=200, anchor="center")
+
+    # Selecting one of the quotes with the random library
+    motivational_quote = random.choice(list(quotations.values()))
+
+    completed_label = tk.Label(root,
+                               text="Congratulations, you have completed your session!",
+                               font=('Arial', 18, 'bold'), bg="white", fg="black")
+    completed_label.place(relx=0.5, y=450, anchor="center")
+
+    quote_label = tk.Label(root,
+                           text=motivational_quote,
+                           font=('Arial', 14, 'italic'),
+                           bg="white", fg="black", wraplength=500)
+    quote_label.place(relx=0.5, y=500, anchor="center")
 
     button = RoundedButton(root,
-                           300,
-                           100,
+                           200,
+                           75,
                            25,
-                           5,
+                           2,
                            '#42D742',
                            'white',
-                           text="Back",
-                           text_color="black",
+                           text="Back home",
+                           text_color="white",
                            command=lambda: overview_gui(root, name.get())
                            )
     button.place(relx=0.5, y=675, anchor="center")
 
 
 # Call the main GUI function to initialize the main page
+
 intro_gui(root)
 
 root.mainloop()
